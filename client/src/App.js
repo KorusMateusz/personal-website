@@ -7,53 +7,55 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      emailFromField: "",
-      emailSubjectField: "",
-      emailMessageField: "",
+      messageForm: {
+        from: "",
+        subject: "",
+        message: ""
+      },
       recaptchaVerified: false
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleMessageFormChange = this.handleMessageFormChange.bind(this);
+    this.handleMessageFormSubmit = this.handleMessageFormSubmit.bind(this);
   }
-  handleChange = e =>{
-    this.setState({ [e.target.name]: e.target.value} )
+  handleMessageFormChange = e =>{
+    this.setState({
+      messageForm: {
+        ...this.state.messageForm,
+        [e.target.name]: e.target.value}
+      }
+    )
   };
-  async handleSubmit(e){
+  async handleMessageFormSubmit(e){
     e.preventDefault();
-    const { emailFromField, emailSubjectField, emailMessageField } = this.state
-    const form = await axios.post("/api/form", {
-      emailFromField,
-      emailSubjectField,
-      emailMessageField
-    })
+    await axios.post("/api/form", this.state.messageForm)
   }
 
   render() {
     return (
       <div className="App">
-        <form onSubmit={this.handleSubmit}>
+        <form autoComplete={"off"} onSubmit={this.handleMessageFormSubmit}>
           <input
             type={"text"}
-            name={"emailFromField"}
-            value={this.state.emailFromField}
+            name={"from"}
+            value={this.state.messageForm.from}
             placeholder={"From"}
-            onChange={this.handleChange}
+            onChange={this.handleMessageFormChange}
             />
           <input
             type={"text"}
-            name={"emailSubjectField"}
-            value={this.state.emailSubjectField}
+            name={"subject"}
+            value={this.state.messageForm.subject}
             placeholder={"Subject"}
-            onChange={this.handleChange}
+            onChange={this.handleMessageFormChange}
           />
           <input
             type={"text"}
-            name={"emailMessageField"}
-            value={this.state.emailMessageField}
+            name={"message"}
+            value={this.state.messageForm.message}
             placeholder={"Message"}
-            onChange={this.handleChange}
+            onChange={this.handleMessageFormChange}
           />
-          <button type={"submit"}>Submit</button>
+          <button type={"submit"} disabled={!this.state.recaptchaVerified}>Submit</button>
         </form>
       </div>
     );
