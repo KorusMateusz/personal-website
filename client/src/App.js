@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import logo from './logo.svg';
+import Recaptcha from "react-recaptcha";
 import './App.css';
 
 class App extends Component {
@@ -16,6 +16,7 @@ class App extends Component {
     };
     this.handleMessageFormChange = this.handleMessageFormChange.bind(this);
     this.handleMessageFormSubmit = this.handleMessageFormSubmit.bind(this);
+    this.verifyRecaptcha = this.verifyRecaptcha.bind(this);
   }
   handleMessageFormChange = e =>{
     this.setState({
@@ -26,8 +27,14 @@ class App extends Component {
     )
   };
   async handleMessageFormSubmit(e){
-    e.preventDefault();
     await axios.post("/api/form", this.state.messageForm)
+  }
+  verifyRecaptcha(response) {
+    if (response) {
+      this.setState({
+        recaptchaVerified: true
+      })
+    }
   }
 
   render() {
@@ -54,6 +61,12 @@ class App extends Component {
             value={this.state.messageForm.message}
             placeholder={"Message"}
             onChange={this.handleMessageFormChange}
+          />
+          <Recaptcha
+            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+            render="explicit"
+            onloadCallback={console.log("ReCaptcha loaded")}
+            verifyCallback={this.verifyRecaptcha}
           />
           <button type={"submit"} disabled={!this.state.recaptchaVerified}>Submit</button>
         </form>
