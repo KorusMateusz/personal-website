@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ContactForm from "../ContactForm";
-import Recaptcha from "react-recaptcha";
 import axios from "axios";
 
 
