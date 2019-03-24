@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ContactForm from "../ContactForm";
 import axios from "axios";
+import { Redirect } from 'react-router-dom'
 
 
 class Contact extends Component {
@@ -12,7 +13,8 @@ class Contact extends Component {
         subject: "",
         message: ""
       },
-      recaptchaVerified: false
+      recaptchaVerified: true,
+      messageSent: false
     };
     this.handleContactFormChange = this.handleContactFormChange.bind(this);
     this.handleContactFormSubmit = this.handleContactFormSubmit.bind(this);
@@ -26,8 +28,18 @@ class Contact extends Component {
       }
     )
   };
-  async handleContactFormSubmit(e){
-    await axios.post("/api/form", this.state.contactFormFields)
+  handleContactFormSubmit(e){
+    e.preventDefault();
+    axios.post("/api/form", this.state.contactFormFields)
+      .then((res) => {
+        if (res.data.error){
+          return this.setState({messageSent: "error"})
+        }
+        return this.setState({messageSent: "success"})
+    })
+      .catch(() => {
+        this.setState({messageSent: "error"})
+      });
   }
   verifyRecaptcha(response) {
     if (response) {
@@ -38,14 +50,21 @@ class Contact extends Component {
   }
 
   render() {
+    const { contactFormFields, recaptchaVerified, messageSent } = this.state;
+    if (messageSent) {
+      if (messageSent === "error"){
+        return <Redirect to='/messagefailed'/>;
+      }
+      return <Redirect to='/messagesuccessful'/>;
+    }
     return(
       <div><h1>Contact Me</h1>
         <ContactForm
-          contactFormFields={this.state.contactFormFields}
+          contactFormFields={contactFormFields}
           handleContactFormChange={this.handleContactFormChange}
           handleContactFormSubmit={this.handleContactFormSubmit}
           verifyRecaptcha={this.verifyRecaptcha}
-          recaptchaVerified={this.state.recaptchaVerified}/>
+          recaptchaVerified={recaptchaVerified}/>
       </div>
     )
   }

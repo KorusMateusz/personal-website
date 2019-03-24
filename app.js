@@ -16,8 +16,8 @@ app.get('*', (req, res) => {
 
 app.post("/api/form", (req, res)=>{
   sendMail(req.body.from, req.body.subject, req.body.message, (err, done)=>{
-    if (err) return console.log(err);
-    return console.log(done)
+    if (err) return res.json({error: err});
+    return res.json(done);
   });
 });
 

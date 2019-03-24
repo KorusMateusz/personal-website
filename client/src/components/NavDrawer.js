@@ -13,9 +13,10 @@ const styles = {
   list: {
     width: 250,
   },
-  fullList: {
-    width: 'auto',
-  },
+  menuButton:{
+    marginRight: 20,
+    marginLeft: -12
+  }
 };
 
 class NavDrawer extends React.Component {

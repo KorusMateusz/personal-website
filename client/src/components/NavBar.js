@@ -14,11 +14,7 @@ const styles = {
   },
   grow: {
     flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
+  }
 };
 
 function ButtonAppBar(props) {
@@ -31,6 +27,7 @@ function ButtonAppBar(props) {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             News
           </Typography>
+          <div id={"full-size-navbuttons"}>
           <Button color="inherit" component={Link} to="/">
             Home
           </Button>
@@ -43,6 +40,7 @@ function ButtonAppBar(props) {
           <Button color="inherit" component={Link} to="/contact">
             Contact
           </Button>
+          </div>
         </Toolbar>
       </AppBar>
     </div>
