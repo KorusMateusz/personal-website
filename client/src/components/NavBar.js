@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import NavDrawer from "./NavDrawer"
+import {navRoutes} from "./routes/Router"
 
 const styles = {
   root: {
@@ -18,30 +19,22 @@ const styles = {
 };
 
 
-
 function ButtonAppBar(props) {
   const { classes } = props;
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
+    <div className={classes.root} style={{ paddingTop: 56 }}>
+      <AppBar position="fixed">
         <Toolbar>
           <NavDrawer />
           <Typography variant="h6" color="inherit" className={classes.grow}>
             <Link to="/" style={{textDecoration: "none", color: "inherit"}}>Mateusz Korus' website</Link>
           </Typography>
           <div id={"full-size-navbuttons"}>
-          <Button color="inherit" component={Link} to="/">
-            Home
-          </Button>
-          <Button color="inherit" component={Link} to="/aboutme">
-            About Me
-          </Button>
-          <Button color="inherit" component={Link} to="/projects">
-            Projects
-          </Button>
-          <Button color="inherit" component={Link} to="/contact">
-            Contact
-          </Button>
+            {navRoutes.map((route)=>(
+              <Button color="inherit" component={Link} to={route.path}>
+                {route.name}
+              </Button>
+            ))}
           </div>
         </Toolbar>
       </AppBar>

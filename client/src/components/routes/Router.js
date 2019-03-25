@@ -1,23 +1,34 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import LandingPage from './LandingPage';
-import AboutMe from './AboutMe';
-import Contact from './Contact';
-import Projects from "./Projects";
-import MessageSuccessful from "./MessageSuccessful";
-import MessageFailed from "./MessageFailed";
+import LandingPage from './LandingPage/LandingPage';
+import AboutMe from './AboutMe/AboutMe';
+import Contact from './Contact/Contact';
+import Projects from "./Projects/Projects";
+import MessageSuccessful from "./Messages/MessageSuccessful";
+import MessageFailed from "./Messages/MessageFailed";
 
+const navRoutes = [
+  { name: "Home", path: "/", component: LandingPage},
+  { name: "About Me", path: "/aboutme", component: AboutMe},
+  { name: "Projects", path: "/projects", component: Projects},
+  { name: "Contact", path: "/contact", component: Contact},
+];
 
+// Landing page path is declared outside of navRoutes, because it needs "exact path" as opposed to "path" for other routes
 const Router = () => (
   <Switch>
-    <Route exact path="/" component={LandingPage} />
-    <Route path="/aboutme" component={AboutMe} />
-    <Route path="/contact" component={Contact} />
-    <Route path="/projects" component={Projects} />
+    {navRoutes.map((route) => (
+    <Route exact path={route.path} component={route.component} />
+      )
+    )}
     <Route path="/messagesuccessful" component={MessageSuccessful} />
     <Route path="/messagefailed" component={MessageFailed} />
   </Switch>
 );
+
+navRoutes.unshift();
+
+export { navRoutes }
 
 export default Router;
