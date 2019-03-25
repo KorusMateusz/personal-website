@@ -17,6 +17,8 @@ const styles = {
   }
 };
 
+
+
 function ButtonAppBar(props) {
   const { classes } = props;
   return (
@@ -25,7 +27,7 @@ function ButtonAppBar(props) {
         <Toolbar>
           <NavDrawer />
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            News
+            <Link to="/" style={{textDecoration: "none", color: "inherit"}}>Mateusz Korus' website</Link>
           </Typography>
           <div id={"full-size-navbuttons"}>
           <Button color="inherit" component={Link} to="/">
