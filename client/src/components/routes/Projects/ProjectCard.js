@@ -7,6 +7,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDesktop } from '@fortawesome/free-solid-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 import React, {Component} from "react";
 
@@ -49,9 +52,11 @@ class ProjectCard extends Component {
         </CardActionArea>
         <CardActions>
           <Button size="small" color="primary" href={liveLink} target="_blank">
+            <FontAwesomeIcon icon={faDesktop} size="lg"/>&nbsp;
             Live version
           </Button>
           <Button size="small" color="primary" href={githubLink} target="_blank">
+            <FontAwesomeIcon icon={faGithub} size="lg"/>&nbsp;
             GitHub link
           </Button>
         </CardActions>

@@ -5,6 +5,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blueGrey from '@material-ui/core/colors/blueGrey';
 import NavBar from "./components/NavBar.js"
 
+
 const theme = createMuiTheme({
   palette: {
     primary: blueGrey,

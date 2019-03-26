@@ -46,9 +46,9 @@ class Projects extends Component {
       </Typography>
       <Grid container spacing={24}>
         {projectsList.map( (projectInfo) => (
-        <Grid item xs={12} md={6} lg={4}>
-          <ProjectCard {...projectInfo} />
-        </Grid>
+          <Grid item xs={12} md={6} lg={4}>
+            <ProjectCard {...projectInfo} />
+          </Grid>
           )
         )}
         </Grid>
