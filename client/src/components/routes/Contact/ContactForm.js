@@ -17,7 +17,7 @@ class ContactForm extends Component {
         subject: "",
         message: ""
       },
-      recaptchaVerified: false,
+      recaptcha: false,
       messageSent: false
     };
     this.handleContactFormChange = this.handleContactFormChange.bind(this);
@@ -34,6 +34,8 @@ class ContactForm extends Component {
   };
   handleContactFormSubmit(e){
     e.preventDefault();
+    let data = this.state.formFields;
+    data['g-recaptcha-response'] = this.state.recaptcha;
     axios.post("/api/form", this.state.formFields)
       .then((res) => {
         if (res.data.error){
@@ -48,13 +50,13 @@ class ContactForm extends Component {
   verifyRecaptcha(response) {
     if (response) {
       this.setState({
-        recaptchaVerified: true
+        recaptcha: response
       })
     }
   }
 
   render() {
-    const { formFields, recaptchaVerified, messageSent } = this.state;
+    const { formFields, recaptcha, messageSent } = this.state;
     if (messageSent) {
       if (messageSent === "error"){
         return <Redirect to='/messagefailed'/>;
@@ -101,14 +103,15 @@ class ContactForm extends Component {
           variant="outlined"
           onChange={this.handleContactFormChange}
         />
-        <div style={{display: "flex"}}>
+        {/*using grid here to allow pretty display of captcha and send button in either one or two rows*/}
+        <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", marginTop: "10px"}}>
           <Recaptcha
-            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+            sitekey="6LcQW44UAAAAAHxGkQlxAt89Njt0-Vmf0kcTdNp6"
             theme="dark"
             verifyCallback={this.verifyRecaptcha}
           />
-          <div style={{display: "flex", width: "100%", justifyContent: "center", alignItems: "center"}}>
-            <Button variant="contained" color="primary" size="large" type="submit" disabled={!recaptchaVerified}>
+          <div style={{display: "flex", width: "100%", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
+            <Button variant="contained" color="primary" size="large" type="submit" disabled={!recaptcha}>
               <strong>Send </strong>
               <FontAwesomeIcon  icon={faPaperPlane} size="lg"
                                 style={{transform: "translateX(5px) translateY(-2px) rotate(25deg)"}}/>

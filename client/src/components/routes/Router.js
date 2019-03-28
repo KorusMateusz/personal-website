@@ -5,8 +5,8 @@ import LandingPage from './LandingPage/LandingPage';
 import AboutMe from './AboutMe/AboutMe';
 import Contact from './Contact/Contact';
 import Projects from "./Projects/Projects";
-import MessageSuccessful from "./Messages/MessageSuccessful";
-import MessageFailed from "./Messages/MessageFailed";
+import MessageSuccessful from "./Contact/MessageSuccessful";
+import MessageFailed from "./Contact/MessageFailed";
 
 const navRoutes = [
   { name: "Home", path: "/", component: LandingPage},

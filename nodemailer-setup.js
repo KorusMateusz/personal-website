@@ -11,9 +11,9 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-function sendMail(from, subject, message, callback){
+function sendMail(from, email, subject, message, callback){
   const mailOptions = {
-    from: `Contact form - ${from} \<${process.env.EMAIL_ADDRESS}\>`,
+    from: `Contact form - ${from} - ${email} \<${process.env.EMAIL_ADDRESS}\>`,
     to: process.env.RECIPIENT_EMAIL,
     subject: subject,
     text: message

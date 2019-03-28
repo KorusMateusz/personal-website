@@ -18,6 +18,14 @@ const socialLinks = [
 
 
 function Contact() {
+  /*const renderTextDependingOnScreenSize = (linkInfo) => {
+    if(window.innerWidth >= 769){
+      return (
+        <ListItemText primary={linkInfo.platform} secondary={linkInfo.link} />
+      );
+    }
+    return (<ListItemText primary={linkInfo.platform} />)
+  };*/
   return (
     <div style={{margin: "20px"}}>
       <Typography style={{margin: "40px 0 40px"}} variant="h1" align="center">
